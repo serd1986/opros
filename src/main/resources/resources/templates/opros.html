@@ -1,0 +1,215 @@
+    <!DOCTYPE html>
+    <html  xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8"/>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+      <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+      <link rel="stylesheet" th:href="@{/tether/tether.min.css}"/>
+      <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+      <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-grid.min.css}"/>
+      <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-reboot.min.css}"/>
+      <link rel="stylesheet" th:href="@{/dropdown/css/style.css}"/>
+      <link rel="stylesheet" th:href="@{/socicon/css/styles.css}"/>
+      <link rel="stylesheet" th:href="@{/theme/css/style.css}"/>
+      <link rel="preload" as="style" th:href="@{/mobirise/css/mbr-additional.css}"/>
+      <link rel="stylesheet" th:href="@{/mobirise/css/mbr-additional.css}" type="text/css"/>
+      <link rel="shortcut icon" th:href="@{/images/logo.png}" type="image/x-icon"/>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+        <style>
+        .sel {color:green; font-weight:700;}
+        .capital {color:red; font-weight:700;}
+        .depend {color:#404040; font-weight:400; padding-left:10px;}
+        </style>
+      <title>Опрос</title>
+
+    </head>
+    <body>
+      <section class="menu cid-s48OLK6784" once="menu" id="menu1-h">
+          <div th:replace="fragments/adminHeader :: adminHeader"/>
+      </section>
+
+    <section class="content5 cid-sbufS0hbtL" id="content5-n">
+
+        <div class="container-fluid ">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-12 ">
+                    <h4 class="mbr-section-subtitle mbr-fonts-style mb-0 mt-5 display-5">
+                        Уважаемые жители города ___________! Приглашаем Вас принять участие в опросе общественного мнения о деятельности ______.
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features7 cid-sbug9isB19" id="features8-o">
+        <!---->
+
+        <form th:action="@{/opros}" th:object="${otvetForms}" method="POST">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="card  col-12 col-md-12" style="width: 18rem;">
+                    <div class="card-header">
+                        Сообщите некоторые сведения о себе:
+                    </div>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4 "  >
+                    <div class="card-header">
+                        <h4 class="text-bold mb-0 mt-0">1. Пол:</h4>
+                    </div>
+
+                    <div class="form-check" th:each="Pol : ${T(com.com.processdev.model.Pol).values()}">
+                        <input name="Pol" type="radio" th:value="${Pol}" th:id="${Pol}" th:checked="*{Pol}!=null AND ${Pol.name()} == *{Pol.name()}"/>
+                        <label th:for="${Pol}" th:text="| &nbsp; ${Pol} |">Something is wrong !</label>
+                    </div>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4" >
+                    <div class="card-header">
+                        <h4 class="text-bold mb-0 mt-0">2. Возраст:</h4>
+                    </div>
+
+                    <div class="form-check" th:each="AgeD : ${T(com.com.processdev.model.AgeD).values()}">
+                        <input name="AgeD" type="radio" th:value="${AgeD}" th:id="${AgeD}" th:checked="*{AgeD}!=null AND ${AgeD.name()} == *{AgeD.name()}"/>
+                        <label th:for="${AgeD}" th:text="| &nbsp; ${AgeD.getDisplayValue()} |">Something is wrong !</label>
+                    </div>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4" style="width: 18rem;">
+                    <div class="card-header ">
+                        <h4 class="text-bold mb-0 mt-0">3. Район:</h4>
+                    </div>
+
+                    <select class="form-control selectpicker btn-sm capital" th:field="*{Rayon}">
+                        <option value="" >Выбрать</option>
+
+                        <option th:each="Rayon : ${T(com.com.processdev.model.Rayon).values()}"
+                                th:value="${Rayon}"
+                                th:text="${Rayon}">
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4" style="width: 18rem;">
+                    <div class="card-header">
+                        <h4 class="text-bold mb-0 mt-0">4. Вы чувствуете себя защищенным(-ной) ________________?</h4>
+                    </div>
+                    <div class="form-check" th:each="Vopros_4 : ${T(com.com.processdev.model.Vopros_4).values()}">
+                        <input class="form-check-input" name="Vopros_4" type="radio" th:value="${Vopros_4}" th:id="${Vopros_4.getIdHtml()}" th:checked="*{Vopros_4}!=null AND ${Vopros_4.name()} == *{Vopros_4.name()}"/>
+                        <label class="radio-inline control-label" th:for="${Vopros_4.getIdHtml()}" th:text="| &nbsp; ${Vopros_4.getDisplayValue()} |">Something is wrong !</label>
+
+                    </div>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4" style="width: 18rem;">
+                    <div class="card-header">
+                        <h4 class="text-bold mb-0 mt-0">5. Доверяете ли ______________________?</h4>
+                    </div>
+                    <div class="form-check" th:each="Vopros_5 : ${T(com.com.processdev.model.Vopros_5).values()}">
+                        <input class="form-check-input" name="Vopros_5" type="radio" th:value="${Vopros_5}" th:id="${Vopros_5.getIdHtml()}"  th:checked="*{Vopros_5}!=null AND ${Vopros_5.name()} == *{Vopros_5.name()}"/>
+                        <label th:for="${Vopros_5.getIdHtml()}" th:text="| &nbsp; ${Vopros_5.getDisplayValue()} |"></label>
+                    </div>
+                </div>
+
+                <div class="card bg-light col-12 col-md-4" style="width: 18rem;">
+                    <div class="card-header">
+                        <h4 class="text-bold mb-0 mt-0">6. Как Вы оцениваете работу в Вашем районе?</h4>
+                    </div>
+                    <div class="form-check" th:each="Vopros_6 : ${T(com.com.processdev.model.Vopros_6).values()}">
+                        <input class="form-check-input" name="Vopros_6" type="radio" th:value="${Vopros_6}" th:id="${Vopros_6.getIdHtml()}"  th:checked="*{Vopros_6}!=null AND ${Vopros_6.name()} == *{Vopros_6.name()}"/>
+                        <label th:for="${Vopros_6.getIdHtml()}" th:text="| &nbsp; ${Vopros_6.getDisplayValue()} |"></label>
+                    </div>
+                </div>
+
+                <!--modal-->
+                <div th:if="${errorMessage}" th:id="myModal_repeat_Error" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+    <!--                        <div class="modal-header">-->
+    <!--                            <h4 class="modal-title">Внимание</h4>-->
+    <!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+    <!--                                <span aria-hidden="true">&times;</span>-->
+    <!--                            </button>-->
+    <!--                        </div>-->
+
+                            <div class="modal-body">
+                                <p th:utext="${errorMessage}" style="color:red;font-style:bold;font-size: 3rem;"></p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                            </div>
+
+                        </div><!-- /.модальное окно-Содержание -->
+                    </div><!-- /.модальное окно-диалог -->
+                </div>
+
+                <!---->
+
+                <!--modal-->
+                <div th:if="${okMessage}" th:id="myModal_repeat_Ok" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+    <!--                        <div class="modal-header">-->
+    <!--                            <h4 class="modal-title">Внимание</h4>-->
+    <!--                        </div>-->
+
+                            <div class="modal-body">
+                                <p th:utext="${okMessage}" style="color:green;font-style:bold;font-size: 3rem;"></p>
+                            </div>
+
+                            <div class="modal-footer">
+<!--                                <a class="btn btn-success"  href="">Закрыть</a>-->
+                                <a class="btn btn-success"  href="https://.рф/">Закрыть</a>
+                            </div>
+
+                        </div><!-- /.модальное окно-Содержание -->
+                    </div>
+                </div>
+
+                <div class="card  col-12 col-md-4" style="width: 18rem;"></div>
+                <div class="card  col-12 col-md-4 mb-4 mb-sm-0" style="width: 18rem;">
+                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Отправить отзыв</button>
+                </div>
+                <div class="card  col-12 col-md-4" style="width: 18rem;"></div>
+                <div class="card  col-12 col-md-12" style="width: 18rem;">
+    <!--                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Отправить отзыв</button>-->
+                </div>
+
+            </div>
+        </div>
+
+        </form>
+    </section>
+
+    <section class="footer3 cid-s48P1Icc8J" once="footers" id="footer3-i">
+        <footer class="footer navbar-fixed-bottom" th:replace="fragments/footer :: footer"/>
+    </section>
+
+
+      <script type="text/javascript" th:src="@{/web/assets/jquery/jquery.min.js}"></script>
+      <script type="text/javascript"  th:src="@{/popper/popper.min.js}"></script>
+      <script type="text/javascript"  th:src="@{/tether/tether.min.js}"></script>
+      <script type="text/javascript"  th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+      <script type="text/javascript"  th:src="@{/smoothscroll/smooth-scroll.js}"></script>
+      <script type="text/javascript"  th:src="@{/dropdown/js/nav-dropdown.js}"></script>
+      <script type="text/javascript"  th:src="@{/dropdown/js/navbar-dropdown.js}"></script>
+      <script type="text/javascript"  th:src="@{/touchswipe/jquery.touch-swipe.min.js}"></script>
+      <script type="text/javascript"  th:src="@{/theme/js/script.js}"></script>
+      <script>
+        $(document).ready(function(){
+        $('.modal-content').css('height',$( window ).height()*0.5);
+            $("#myModal_repeat_Error").modal('show');
+        });
+        $(document).ready(function(){
+        $('.modal-content').css('height',$( window ).height()*0.5);
+            $("#myModal_repeat_Ok").modal('show');
+        });
+    </script>
+
+    </body>
+    </html>

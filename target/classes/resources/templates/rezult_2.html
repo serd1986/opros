@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/tether/tether.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-grid.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-reboot.min.css}"/>
+    <link rel="stylesheet" th:href="@{/dropdown/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/socicon/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/theme/css/style.css}"/>
+    <link rel="preload" as="style" th:href="@{/mobirise/css/mbr-additional.css}"/>
+    <link rel="stylesheet" th:href="@{/mobirise/css/mbr-additional.css}" type="text/css"/>
+    <link rel="shortcut icon" th:href="@{/images/logo.png}" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+    <style>
+    .sel {color:green; font-weight:700;}
+    .capital {color:red; font-weight:700;}
+    .depend {color:#404040; font-weight:400; padding-left:10px;}
+    </style>
+    <title>Опрос</title>
+
+</head>
+<body>
+<section class="menu cid-s48OLK6784" once="menu" id="menu1-h">
+    <nav th:replace="fragments/adminHeader :: adminHeader"/>
+</section>
+
+<section class="features7 cid-sbug9isB19" id="features8-o">
+    <form th:action="@{/rezult}" th:object="${otvetForms}" method="POST">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-12 col-md-4 card bg-light mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                    <div class="card-header "> Форма запроса: </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                        <label for="staticRayon" class="col-form-label">Район</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control selectpicker btn-sm capital" th:field="*{Rayon}" id="staticRayon">
+                                <option value="" class="capital">Выбрать</option>
+                                <option th:each="Rayon : ${T(com.com.processdev.model.Rayon).values()}"
+                                        th:value="${Rayon}"
+                                        th:text="${Rayon}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Поиск</button>
+                        </div>
+                        </div>
+                </div>
+                </div>
+            </div>
+            <div th:if="${hashSumAge}" class="container-fluid text-center">
+                <table class="table table-striped table-bordered table-sm mb-0 mb-sm-0" cellspacing="0" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1 col-sm-2 col-xs-3" >№</th>
+                        <th class="col-md-9 col-sm-6 col-xs-3">Возраст</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">Кол-ов отв.</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">%</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="AgeD, i : ${T(com.com.processdev.model.AgeD).values()}">
+                        <!--№-->
+                        <td class="text-center" th:text="${i.count}"/>
+                        <td class="text-left" th:utext="${AgeD.getDisplayValue()}"></td>
+                        <td class="text-left" th:utext="${hashSumAge.get(AgeD)}"></td>
+                        <td class="text-left" th:utext="${hashProcAge.get(AgeD)}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${hashSumPol}" class="container-fluid text-center">
+                <table class="table table-striped table-bordered table-sm mb-0 mb-sm-0" cellspacing="0" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1 col-sm-2 col-xs-2" >№</th>
+                        <th class="col-md-9 col-sm-6 col-xs-6">Пол</th>
+                        <th class="col-md-1 col-sm-2 col-xs-2">Кол-ов отв.</th>
+                        <th class="col-md-1 col-sm-2 col-xs-2">%</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="Pol, i : ${T(com.com.processdev.model.Pol).values()}">
+                        <!--№-->
+                        <td class="text-center" th:text="${i.count}"/>
+                        <td class="text-left" th:utext="${Pol}"></td>
+                        <td class="text-left" th:utext="${hashSumPol.get(Pol)}"></td>
+                        <td class="text-left" th:utext="${hashProcPol.get(Pol)}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${hashSumVopros4}" class="container-fluid text-center">
+                <table class="table table-striped table-bordered table-sm mb-0 mb-sm-0" cellspacing="0" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1 col-sm-2 col-xs-2" >№</th>
+                        <th class="col-md-9 col-sm-6 col-xs-6">Вы чувствуете себя ____?</th>
+                        <th class="col-md-1 col-sm-2 col-xs-2">Кол-ов отв.</th>
+                        <th class="col-md-1 col-sm-2 col-xs-2">%</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="Vopros_4, i : ${T(com.com.processdev.model.Vopros_4).values()}">
+                        <!--№-->
+                        <td class="text-center" th:text="${i.count}"/>
+                        <td class="text-left" th:utext="${Vopros_4.getDisplayValue()}"></td>
+                        <td class="text-left" th:utext="${hashSumVopros4.get(Vopros_4)}"></td>
+                        <td class="text-left" th:utext="${hashProcVopros4.get(Vopros_4)}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${hashSumVopros5}" class="container-fluid text-center">
+                <table class="table table-striped table-bordered table-sm mb-0 mb-sm-0" cellspacing="0" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1 col-sm-2 col-xs-3" >№</th>
+                        <th class="col-md-9 col-sm-6 col-xs-3">Доверяете ли Вы _____?</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">Кол-ов отв.</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">%</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="Vopros_5, i : ${T(com.com.processdev.model.Vopros_5).values()}">
+                        <!--№-->
+                        <td class="text-center" th:text="${i.count}"/>
+                        <td class="text-left" th:utext="${Vopros_5.getDisplayValue()}"></td>
+                        <td class="text-left" th:utext="${hashSumVopros5.get(Vopros_5)}"></td>
+                        <td class="text-left" th:utext="${hashProcVopros5.get(Vopros_5)}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${hashSumVopros6}" class="container-fluid text-center">
+                <table class="table table-striped table-bordered table-sm mb-0 mb-sm-0" cellspacing="0" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1 col-sm-2 col-xs-3" >№</th>
+                        <th class="col-md-9 col-sm-6 col-xs-3">Как Вы оцениваете работу?</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">Кол-ов отв.</th>
+                        <th class="col-md-1 col-sm-2 col-xs-3">%</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="Vopros_6, i : ${T(com.com.processdev.model.Vopros_6).values()}">
+                        <!--№-->
+                        <td class="text-center" th:text="${i.count}"/>
+                        <td class="text-left" th:utext="${Vopros_6.getDisplayValue()}"></td>
+                        <td class="text-left" th:utext="${hashSumVopros6.get(Vopros_6)}"></td>
+                        <td class="text-left" th:utext="${hashProcVopros6.get(Vopros_6)}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+
+</section>
+
+<section class="footer3 cid-s48P1Icc8J" once="footers" id="footer3-i">
+    <dif th:replace="fragments/footer :: footer"/>
+</section>
+
+<script type="text/javascript" th:src="@{/web/assets/jquery/jquery.min.js}"></script>
+<script type="text/javascript"  th:src="@{/popper/popper.min.js}"></script>
+<script type="text/javascript"  th:src="@{/tether/tether.min.js}"></script>
+<script type="text/javascript"  th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript"  th:src="@{/smoothscroll/smooth-scroll.js}"></script>
+<script type="text/javascript"  th:src="@{/dropdown/js/nav-dropdown.js}"></script>
+<script type="text/javascript"  th:src="@{/dropdown/js/navbar-dropdown.js}"></script>
+<script type="text/javascript"  th:src="@{/touchswipe/jquery.touch-swipe.min.js}"></script>
+<script type="text/javascript"  th:src="@{/theme/js/script.js}"></script>
+
+</body>
+</html>
