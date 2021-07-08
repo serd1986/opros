@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Безопасность</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/tether/tether.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-grid.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-reboot.min.css}"/>
+    <link rel="stylesheet" th:href="@{/dropdown/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/socicon/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/theme/css/style.css}"/>
+    <link rel="preload" as="style" th:href="@{/mobirise/css/mbr-additional.css}"/>
+    <link rel="stylesheet" th:href="@{/mobirise/css/mbr-additional.css}" type="text/css"/>
+    <link rel="shortcut icon" th:href="@{/images/logo.png}" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+</head>
+<body>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <div class="card">
+            <h5 class="card-header info-color white-text text-center py-4">
+<!--nnn-->
+                <strong>Пожалуйста, войдите в систему</strong>
+<!--                <strong>Техническая работа</strong>-->
+            </h5>
+            <div class="container">
+                <form class="text-center" style="color: #757575;" th:action="@{/login}" method="post">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Неверное имя пользователя или пароль.
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">
+                            Вы вышли из системы.
+                        </div>
+                    </div>
+
+                    <div class="md-form mt-3">
+                        <input type="text" name="username" id="username" class="form-control" autofocus="true" required="true"/>
+                        <label for="username">Логин</label>
+                    </div>
+                    <div class="md-form mt-3">
+                        <input type="password" name="password" id="password" class="form-control" required="true"/>
+                        <label for="password">Пароль</label>
+                    </div>
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Войти</button>
+            </form>
+         </div>
+        </div>
+        <section class="footer3 cid-s48P1Icc8J" once="footers" id="footer3-i">
+            <hr/>
+            <dif th:replace="fragments/footer :: footer"/>
+        </section>
+
+    </div>
+
+   </div>
+
+<script type="text/javascript" th:src="@{/web/assets/jquery/jquery.min.js}"></script>
+<script type="text/javascript"  th:src="@{/popper/popper.min.js}"></script>
+<script type="text/javascript"  th:src="@{/tether/tether.min.js}"></script>
+<script type="text/javascript"  th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript"  th:src="@{/smoothscroll/smooth-scroll.js}"></script>
+<script type="text/javascript"  th:src="@{/dropdown/js/nav-dropdown.js}"></script>
+<script type="text/javascript"  th:src="@{/dropdown/js/navbar-dropdown.js}"></script>
+<script type="text/javascript"  th:src="@{/touchswipe/jquery.touch-swipe.min.js}"></script>
+<script type="text/javascript"  th:src="@{/theme/js/script.js}"></script>
+
+</body>
+</html>
